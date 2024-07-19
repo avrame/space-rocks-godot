@@ -1,15 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://drf60pjfuwn0c"]
+[gd_scene load_steps=3 format=3 uid="uid://drf60pjfuwn0c"]
 
 [ext_resource type="PackedScene" uid="uid://bke7ht6hwx7em" path="res://space_ship.tscn" id="1_a267v"]
 [ext_resource type="Script" path="res://stars.gd" id="1_wiitc"]
-[ext_resource type="PackedScene" uid="uid://crouufakoiel1" path="res://star.tscn" id="2_ds7om"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Stars" type="Node2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_wiitc")
-
-[node name="Star" parent="Stars" instance=ExtResource("2_ds7om")]
 
 [node name="SpaceShip" parent="." instance=ExtResource("1_a267v")]

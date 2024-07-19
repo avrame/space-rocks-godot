@@ -9,14 +9,14 @@ position = Vector2(960, 540)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_u6yal")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_6c8e2")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(35, -15, 0, -86, -34, -15, -80, 30, -81, 79, -36, 79, -1, 43, 37, 79, 81, 79, 81, 27)
-
 [node name="LeftEngineStream" parent="." instance=ExtResource("3_0a0lr")]
 position = Vector2(-60, 90)
 
 [node name="RightEngineStream" parent="." instance=ExtResource("3_0a0lr")]
 position = Vector2(58, 92)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6c8e2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(35, -15, 0, -86, -34, -15, -80, 30, -81, 79, -36, 79, -1, 43, 37, 79, 81, 79, 81, 27)

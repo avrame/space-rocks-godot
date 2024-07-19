@@ -23,16 +23,18 @@ func _physics_process(delta):
 	if Input.is_action_pressed("rotate-left"):
 		var rotate_amount = delta * -ROTATION_SPEED
 		rotate(rotate_amount)
+		right_engine_stream.emitting = true
 	elif Input.is_action_pressed("rotate-right"):
 		var rotate_amount = delta * ROTATION_SPEED
 		rotate(rotate_amount)
+		left_engine_stream.emitting = true
 	
 	if Input.is_action_pressed("thrust"):
 		velocity = velocity + Vector2.UP.rotated(rotation) * THRUST_SPEED
 		velocity = velocity.limit_length(MAX_SPEED)
 		left_engine_stream.emitting = true
 		right_engine_stream.emitting = true
-	else:
+	elif not Input.is_action_pressed("rotate-left") and not Input.is_action_pressed("rotate-right"):
 		velocity = velocity * FRICTION
 		left_engine_stream.emitting = false
 		right_engine_stream.emitting = false
