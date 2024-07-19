@@ -10,6 +10,8 @@ var screen_size
 var sprite_width
 var sprite_height
 @onready var sprite = $Sprite2D
+@onready var left_engine_stream = $LeftEngineStream
+@onready var right_engine_stream = $RightEngineStream
 
 func _ready():
 	screen_size = get_viewport().content_scale_size
@@ -19,15 +21,21 @@ func _ready():
 
 func _physics_process(delta):
 	if Input.is_action_pressed("rotate-left"):
-		rotate(delta * -ROTATION_SPEED)
+		var rotate_amount = delta * -ROTATION_SPEED
+		rotate(rotate_amount)
 	elif Input.is_action_pressed("rotate-right"):
-		rotate(delta * ROTATION_SPEED)
+		var rotate_amount = delta * ROTATION_SPEED
+		rotate(rotate_amount)
 	
 	if Input.is_action_pressed("thrust"):
 		velocity = velocity + Vector2.UP.rotated(rotation) * THRUST_SPEED
 		velocity = velocity.limit_length(MAX_SPEED)
+		left_engine_stream.emitting = true
+		right_engine_stream.emitting = true
 	else:
 		velocity = velocity * FRICTION
+		left_engine_stream.emitting = false
+		right_engine_stream.emitting = false
 		
 	
 	if position.y < 0:

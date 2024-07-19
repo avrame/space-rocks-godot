@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bke7ht6hwx7em"]
+[gd_scene load_steps=4 format=3 uid="uid://bke7ht6hwx7em"]
 
 [ext_resource type="Texture2D" uid="uid://cj67mg0r7dye3" path="res://Spaceship.png" id="1_6c8e2"]
 [ext_resource type="Script" path="res://space_ship.gd" id="1_u6yal"]
+[ext_resource type="PackedScene" uid="uid://3gwsjb0lgeo" path="res://engine_stream.tscn" id="3_0a0lr"]
 
 [node name="SpaceShip" type="CharacterBody2D"]
 position = Vector2(960, 540)
@@ -13,3 +14,9 @@ texture = ExtResource("1_6c8e2")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(35, -15, 0, -86, -34, -15, -80, 30, -81, 79, -36, 79, -1, 43, 37, 79, 81, 79, 81, 27)
+
+[node name="LeftEngineStream" parent="." instance=ExtResource("3_0a0lr")]
+position = Vector2(-60, 90)
+
+[node name="RightEngineStream" parent="." instance=ExtResource("3_0a0lr")]
+position = Vector2(58, 92)
