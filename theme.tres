@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://ci72ymw8fi3b1"]
+
+[ext_resource type="FontFile" uid="uid://cc4xdgoydmo7l" path="res://Fonts/manaspc.ttf" id="1_t214e"]
+[ext_resource type="StyleBox" uid="uid://ccuvby0l71lb2" path="res://new_style_box_flat.tres" id="2_6aaqu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p0x1c"]
+bg_color = Color(0.262745, 0.341176, 0.639216, 0.839216)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[resource]
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("1_t214e")
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_t214e")
+MarginContainer/constants/margin_bottom = 22
+MarginContainer/constants/margin_left = 22
+MarginContainer/constants/margin_right = 22
+MarginContainer/constants/margin_top = 22
+Panel/styles/panel = SubResource("StyleBoxFlat_p0x1c")
+PanelContainer/styles/panel = ExtResource("2_6aaqu")
+VBoxContainer/constants/separation = 12

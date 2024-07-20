@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0lh108c8o7bm"
-path="res://.godot/imported/exhaust-particle.png-188a6e354e337abf0fa27b227ad352b7.ctex"
+uid="uid://dh2a7rmfxk8dm"
+path="res://.godot/imported/stars.png-cd9eb2190422ba4defe355a36eff505b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://exhaust-particle.png"
-dest_files=["res://.godot/imported/exhaust-particle.png-188a6e354e337abf0fa27b227ad352b7.ctex"]
+source_file="res://Textures/stars.png"
+dest_files=["res://.godot/imported/stars.png-cd9eb2190422ba4defe355a36eff505b.ctex"]
 
 [params]
 

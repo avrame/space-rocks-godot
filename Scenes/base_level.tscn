@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://c426h6wdibxd"]
+
+[ext_resource type="Script" path="res://Scripts/stars.gd" id="1_q0gxm"]
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_wqdps"]
+[ext_resource type="PackedScene" uid="uid://bcdeqofdqsjsl" path="res://Scenes/asteroid.tscn" id="2_gemu2"]
+[ext_resource type="PackedScene" uid="uid://bke7ht6hwx7em" path="res://Scenes/space_ship.tscn" id="3_a2bo4"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_wqdps")
+
+[node name="Stars" type="Node2D" parent="."]
+position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("1_q0gxm")
+
+[node name="Asteroid" parent="." instance=ExtResource("2_gemu2")]
+position = Vector2(231, 235)
+
+[node name="SpaceShip" parent="." instance=ExtResource("3_a2bo4")]
+position = Vector2(960, 540)

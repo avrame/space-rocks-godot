@@ -1,6 +1,6 @@
 extends Node2D
 
-var star_scene = preload("res://star.tscn")
+var star_scene = preload("res://Scenes/star.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

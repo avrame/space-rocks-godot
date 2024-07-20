@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://drf60pjfuwn0c"]
+
+[ext_resource type="Script" path="res://Scripts/level_container.gd" id="1_pon6j"]
+[ext_resource type="Script" path="res://Scripts/lives.gd" id="4_2fs3s"]
+[ext_resource type="Script" path="res://Scripts/game_over.gd" id="4_drj5u"]
+[ext_resource type="Theme" uid="uid://ci72ymw8fi3b1" path="res://theme.tres" id="5_tr1yb"]
+
+[node name="Main" type="Node2D"]
+
+[node name="LevelContainer" type="Node2D" parent="."]
+script = ExtResource("1_pon6j")
+
+[node name="Lives" type="Node2D" parent="."]
+position = Vector2(48, 40)
+script = ExtResource("4_2fs3s")
+
+[node name="GameOver" type="CenterContainer" parent="."]
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme = ExtResource("5_tr1yb")
+script = ExtResource("4_drj5u")
+
+[node name="PanelContainer" type="PanelContainer" parent="GameOver"]
+layout_mode = 2
+theme = ExtResource("5_tr1yb")
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOver/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("5_tr1yb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOver/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("5_tr1yb")
+
+[node name="Label" type="Label" parent="GameOver/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_tr1yb")
+text = "Game Over"
+
+[node name="NewGameButton" type="Button" parent="GameOver/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_tr1yb")
+text = "New Game"
+
+[node name="QuitButton" type="Button" parent="GameOver/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("5_tr1yb")
+text = "Quit"
+
+[connection signal="restart_game" from="LevelContainer" to="Lives" method="_on_level_container_restart_game"]
+[connection signal="pressed" from="GameOver/PanelContainer/MarginContainer/VBoxContainer/NewGameButton" to="LevelContainer" method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="GameOver/PanelContainer/MarginContainer/VBoxContainer/NewGameButton" to="GameOver" method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="GameOver/PanelContainer/MarginContainer/VBoxContainer/QuitButton" to="GameOver" method="_on_quit_button_pressed"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://crouufakoiel1"]
 
-[ext_resource type="Texture2D" uid="uid://dh2a7rmfxk8dm" path="res://stars.png" id="1_lc1sg"]
+[ext_resource type="Texture2D" uid="uid://dh2a7rmfxk8dm" path="res://Textures/stars.png" id="1_quo4o"]
 
 [node name="Star" type="Sprite2D"]
 texture_filter = 1
 position = Vector2(2.08165e-12, 2.08165e-12)
-texture = ExtResource("1_lc1sg")
+texture = ExtResource("1_quo4o")
 hframes = 4
 vframes = 4

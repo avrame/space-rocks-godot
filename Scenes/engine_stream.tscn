@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://3gwsjb0lgeo"]
 
-[ext_resource type="Texture2D" uid="uid://d0lh108c8o7bm" path="res://exhaust-particle.png" id="1_7pn8x"]
+[ext_resource type="Texture2D" uid="uid://d0lh108c8o7bm" path="res://Textures/exhaust-particle.png" id="1_wrjd5"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rlojy"]
 particle_flag_disable_z = true
@@ -29,7 +29,7 @@ texture_filter = 1
 position = Vector2(2.08165e-12, 2.08165e-12)
 amount = 60
 process_material = SubResource("ParticleProcessMaterial_rlojy")
-texture = ExtResource("1_7pn8x")
+texture = ExtResource("1_wrjd5")
 lifetime = 0.75
 randomness = 0.5
 visibility_rect = Rect2(-75, -10, 150, 250)
