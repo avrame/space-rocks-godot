@@ -6,14 +6,14 @@ const THRUST_SPEED = 10.0
 const FRICTION = .99
 const MAX_SPEED = 1000.0
 const MIN_DISTANCE_FROM_ASTEROID = 400
-
-var screen_size
 var init_position
 var init_rotation
 var sprite_width
 var sprite_height
 var exploding = false
 
+@onready var global = get_node("/root/Global")
+@onready var screen_size = get_viewport_rect().size
 @onready var bullet_scene = preload("res://Scenes/bullet.tscn")
 @onready var lives_node = get_node("/root/Main/Lives")
 @onready var game_over_node = get_node("/root/Main/GameOver")
@@ -25,7 +25,6 @@ var exploding = false
 func _ready():
 	init_position = position
 	init_rotation = rotation
-	screen_size = get_viewport_rect().size
 	sprite_width = sprite.texture.get_width()
 	sprite_height = sprite.texture.get_height()
 	
@@ -52,15 +51,7 @@ func _physics_process(delta):
 		left_engine_stream.emitting = false
 		right_engine_stream.emitting = false
 
-	if position.y < 0:
-		position.y = screen_size.y
-	elif position.y > screen_size.y:
-		position.y = 0
-	
-	if position.x < 0:
-		position.x = screen_size.x
-	elif position.x > screen_size.x:
-		position.x = 0
+	position = global.wrap_around(position)
 		
 	var collision = move_and_collide(velocity * delta)
 	

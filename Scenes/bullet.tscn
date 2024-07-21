@@ -17,6 +17,7 @@ texture = ExtResource("1_yc8cj")
 shape = SubResource("CircleShape2D_irxdv")
 
 [node name="LifeSpanTimer" type="Timer" parent="."]
+wait_time = 0.75
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="LifeSpanTimer" to="." method="_on_life_span_timer_timeout"]

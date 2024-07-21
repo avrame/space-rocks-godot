@@ -1,4 +1,4 @@
-extends SpaceObject
+extends Node2D
 
 const MIN_SPEED = 25
 const MAX_SPEED = 300
@@ -7,17 +7,18 @@ const MIN_DISTANCE_FROM_SHIP = 250
 enum Size {SMALL, MEDIUM, LARGE}
 @export var size = Size.LARGE
 
+@onready var global = get_node("/root/Global")
 @onready var asteroid_medium_scene = load("res://Scenes/asteroid-medium.tscn")
 @onready var asteroid_small_scene = load("res://Scenes/asteroid-small.tscn")
 @onready var spaceship = get_node("../SpaceShip")
 @onready var LevelContainer = get_node("/root/Main/LevelContainer")
+@onready var screen_size = get_viewport_rect().size
 var speed
 var rotate_speed
 var velocity
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	super()
 	if size == Size.LARGE:
 		generate_random_position()
 		while position.distance_to(spaceship.position) < MIN_DISTANCE_FROM_SHIP:
@@ -31,7 +32,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	rotate(delta * rotate_speed)
 	translate(delta * speed * velocity)
-	super(delta)
+	position = global.wrap_around(position)
 
 func generate_random_position():
 	var x = randf_range(0, screen_size.x)
