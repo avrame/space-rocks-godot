@@ -62,5 +62,8 @@ volume_db = -10.0
 [node name="RespawnTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="GunMarker" type="Marker2D" parent="."]
+position = Vector2(-4.1633e-12, -96)
+
 [connection signal="finished" from="Explosion" to="." method="_on_explosion_finished"]
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

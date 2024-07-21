@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Node2D
 
 const MIN_SPEED = 25
 const MAX_SPEED = 300
@@ -40,3 +40,12 @@ func generate_random_position():
 	var x = randf_range(0, screen_size.x)
 	var y = randf_range(0, screen_size.y)
 	position = Vector2(x, y)
+	
+func explode():
+	$Sprite2D.visible = false
+	$Explosion.emitting = true
+	$ExplosionSound.play()
+
+
+func _on_explosion_finished() -> void:
+	queue_free()

@@ -1,15 +1,50 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcdeqofdqsjsl"]
+[gd_scene load_steps=6 format=3 uid="uid://bcdeqofdqsjsl"]
 
 [ext_resource type="Texture2D" uid="uid://bpx5n7qx6vdke" path="res://Textures/asteroid.png" id="1_fmagi"]
 [ext_resource type="Script" path="res://Scripts/asteroid.gd" id="2_snfe1"]
+[ext_resource type="Texture2D" uid="uid://bc81bnmvnps7x" path="res://Textures/explosion-part.png" id="3_d25qf"]
+[ext_resource type="AudioStream" uid="uid://d321pmavxilib" path="res://Audio/ship-explodes.wav" id="4_fn25v"]
 
-[node name="Asteroid" type="Sprite2D" groups=["Asteroids"]]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_be2nq"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 44.06
+direction = Vector3(1, 2.08165e-12, 2.08165e-12)
+spread = 180.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 558.17
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 197.25
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+linear_accel_min = 46.1
+linear_accel_max = 100.0
+radial_accel_min = 30.05
+radial_accel_max = 30.05
+scale_max = 3.0
+
+[node name="Asteroid" type="Node2D"]
 position = Vector2(0, 2)
-texture = ExtResource("1_fmagi")
 script = ExtResource("2_snfe1")
 
-[node name="AsteroidStaticBody" type="StaticBody2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fmagi")
+
+[node name="AsteroidStaticBody" type="StaticBody2D" parent="." groups=["Asteroids"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AsteroidStaticBody"]
 position = Vector2(9, -33)
 polygon = PackedVector2Array(41, 59, 59, 36, 60, 4, 44, -4, 11, -39, -7, -20, -34, -35, -67, 9, -61, 34, -77, 57, -52, 92, -14, 81, 21, 107, 53, 88)
+
+[node name="Explosion" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_be2nq")
+texture = ExtResource("3_d25qf")
+lifetime = 0.5
+one_shot = true
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_fn25v")
+volume_db = -15.0
+
+[connection signal="finished" from="Explosion" to="." method="_on_explosion_finished"]

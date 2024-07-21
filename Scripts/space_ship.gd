@@ -14,7 +14,7 @@ var sprite_width
 var sprite_height
 var exploding = false
 
-@onready var global = get_node("/root/Global")
+@onready var bullet_scene = preload("res://Scenes/bullet.tscn")
 @onready var lives_node = get_node("/root/Main/Lives")
 @onready var game_over_node = get_node("/root/Main/GameOver")
 @onready var sprite = $Sprite2D
@@ -72,6 +72,9 @@ func _physics_process(delta):
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire"):
 		$PewPewSound.play()
+		var bullet = bullet_scene.instantiate()
+		bullet.transform = $GunMarker.global_transform
+		owner.add_child(bullet)
 
 func explode():
 	exploding = true
