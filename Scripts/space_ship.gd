@@ -25,7 +25,7 @@ var exploding = false
 func _ready():
 	init_position = position
 	init_rotation = rotation
-	screen_size = get_viewport().content_scale_size
+	screen_size = get_viewport_rect().size
 	sprite_width = sprite.texture.get_width()
 	sprite_height = sprite.texture.get_height()
 	
@@ -51,7 +51,7 @@ func _physics_process(delta):
 		velocity = velocity * FRICTION
 		left_engine_stream.emitting = false
 		right_engine_stream.emitting = false
-	
+
 	if position.y < 0:
 		position.y = screen_size.y
 	elif position.y > screen_size.y:

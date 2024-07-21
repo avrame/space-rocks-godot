@@ -1,21 +1,27 @@
-extends Node2D
+extends SpaceObject
 
 const MIN_SPEED = 25
 const MAX_SPEED = 300
 const MIN_DISTANCE_FROM_SHIP = 250
 
+enum Size {SMALL, MEDIUM, LARGE}
+@export var size = Size.LARGE
+
+@onready var asteroid_medium_scene = load("res://Scenes/asteroid-medium.tscn")
+@onready var asteroid_small_scene = load("res://Scenes/asteroid-small.tscn")
 @onready var spaceship = get_node("../SpaceShip")
-var screen_size
+@onready var LevelContainer = get_node("/root/Main/LevelContainer")
 var speed
 var rotate_speed
 var velocity
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	screen_size = get_viewport().content_scale_size
-	generate_random_position()
-	while position.distance_to(spaceship.position) < MIN_DISTANCE_FROM_SHIP:
+	super()
+	if size == Size.LARGE:
 		generate_random_position()
+		while position.distance_to(spaceship.position) < MIN_DISTANCE_FROM_SHIP:
+			generate_random_position()
 	speed = randf_range(MIN_SPEED, MAX_SPEED)
 	rotate_speed = randfn(0, 1.5)
 	var direction = randf_range(0, 2 * PI)
@@ -25,16 +31,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	rotate(delta * rotate_speed)
 	translate(delta * speed * velocity)
-	
-	if position.y < 0:
-		position.y = screen_size.y
-	elif position.y > screen_size.y:
-		position.y = 0
-	
-	if position.x < 0:
-		position.x = screen_size.x
-	elif position.x > screen_size.x:
-		position.x = 0
+	super(delta)
 
 func generate_random_position():
 	var x = randf_range(0, screen_size.x)
@@ -43,9 +40,23 @@ func generate_random_position():
 	
 func explode():
 	$Sprite2D.visible = false
+	$AsteroidStaticBody.queue_free()
 	$Explosion.emitting = true
 	$ExplosionSound.play()
-
+	match size:
+		Size.LARGE:
+			for i in 3:
+				var medium_asteroid = asteroid_medium_scene.instantiate()
+				medium_asteroid.transform = global_transform
+				get_parent().add_child(medium_asteroid)
+		Size.MEDIUM:
+			for i in 3:
+				var small_asteroid = asteroid_small_scene.instantiate()
+				small_asteroid.transform = global_transform
+				get_parent().add_child(small_asteroid)
 
 func _on_explosion_finished() -> void:
+	var asteroids = get_tree().get_nodes_in_group("Asteroids")
+	if asteroids.size() == 0:
+		LevelContainer.load_next_level()
 	queue_free()

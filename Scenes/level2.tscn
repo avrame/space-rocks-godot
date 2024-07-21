@@ -1,5 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwesb3ojwejjf"]
+[gd_scene load_steps=3 format=3 uid="uid://cwesb3ojwejjf"]
 
 [ext_resource type="PackedScene" uid="uid://c426h6wdibxd" path="res://Scenes/base_level.tscn" id="1_byq2t"]
+[ext_resource type="PackedScene" uid="uid://bcdeqofdqsjsl" path="res://Scenes/asteroid.tscn" id="2_jdw2e"]
 
 [node name="Level" instance=ExtResource("1_byq2t")]
+
+[node name="Asteroid2" parent="." index="2" instance=ExtResource("2_jdw2e")]
+position = Vector2(231, 235)
+
+[node name="Asteroid3" parent="." index="3" instance=ExtResource("2_jdw2e")]
+position = Vector2(231, 235)

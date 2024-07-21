@@ -20,6 +20,11 @@ func load_current_level():
 	var level = level_scene.instantiate()
 	add_child(level)
 
+func load_next_level():
+	remove_child(get_child(0))
+	current_level += 1
+	load_current_level()
+
 func _on_new_game_button_pressed() -> void:
 	current_level = 1
 	remove_child(get_child(0))
