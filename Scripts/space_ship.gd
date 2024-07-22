@@ -11,6 +11,7 @@ var init_rotation
 var sprite_width
 var sprite_height
 var exploding = false
+var prevent_firing = false
 
 @onready var global = get_node("/root/Global")
 @onready var screen_size = get_viewport_rect().size
@@ -61,11 +62,13 @@ func _physics_process(delta):
 			explode()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("fire"):
+	if not prevent_firing and event.is_action_pressed("fire"):
+		prevent_firing = true
 		$PewPewSound.play()
 		var bullet = bullet_scene.instantiate()
 		bullet.transform = $GunMarker.global_transform
 		owner.add_child(bullet)
+		$BulletTimer.start()
 
 func explode():
 	exploding = true
@@ -99,4 +102,6 @@ func asteroids_too_close():
 		if position.distance_to(asteroid.position) < MIN_DISTANCE_FROM_ASTEROID:
 			return true
 	return false
-	
+
+func _on_bullet_timer_timeout() -> void:
+	prevent_firing = false

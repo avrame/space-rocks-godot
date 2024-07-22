@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bq6kxehw3q1k7"]
+[gd_scene load_steps=4 format=3 uid="uid://bq6kxehw3q1k7"]
 
 [ext_resource type="PackedScene" uid="uid://bcdeqofdqsjsl" path="res://Scenes/asteroid.tscn" id="1_5bkr6"]
-[ext_resource type="Texture2D" uid="uid://dhtwhfs4p4ahf" path="res://Textures/asteroid-medium.png" id="2_e67jw"]
+[ext_resource type="Texture2D" uid="uid://c8r5vv2poocjn" path="res://Textures/asteroid-medium.png" id="2_e67jw"]
+[ext_resource type="Material" uid="uid://bdtor4cq7tl2i" path="res://Scenes/medium-asteroid-explosion.tres" id="3_rbhj1"]
 
 [node name="Asteroid" instance=ExtResource("1_5bkr6")]
 size = 1
@@ -13,3 +14,7 @@ texture = ExtResource("2_e67jw")
 position = Vector2(10.3412, -37.6875)
 scale = Vector2(1.15779, 1.14423)
 polygon = PackedVector2Array(10, 38, 21, 33, 22, 19, 4, 16, 0.569029, 0.60084, -16, 0, -24.4788, 16.3319, -38, 21, -39, 37, -28, 44, -26, 62, -7, 56, 2, 65, 13, 53)
+
+[node name="Explosion" parent="." index="2"]
+amount = 16
+process_material = ExtResource("3_rbhj1")

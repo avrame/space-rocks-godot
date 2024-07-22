@@ -1,0 +1,18 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://bdtor4cq7tl2i"]
+
+[resource]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 44.06
+direction = Vector3(1, 2.08165e-12, 2.08165e-12)
+spread = 180.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 558.17
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 150.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+linear_accel_min = 46.1
+linear_accel_max = 100.0
+radial_accel_min = -2.23517e-06
+radial_accel_max = -2.23517e-06
+scale_max = 3.0

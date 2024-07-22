@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var LevelStart = get_node("/root/Main/LevelStart")
 var level1 = preload("res://Scenes/level1.tscn")
 var level2 = preload("res://Scenes/level2.tscn")
 var level3 = preload("res://Scenes/level3.tscn")
@@ -21,12 +22,16 @@ func load_current_level():
 	add_child(level)
 
 func load_next_level():
-	remove_child(get_child(0))
+	$NextLevelPause.start()
+	
+func _on_next_level_pause_timeout() -> void:
+	remove_child($Level)
 	current_level += 1
 	load_current_level()
+	LevelStart.open()
 
 func _on_new_game_button_pressed() -> void:
 	current_level = 1
-	remove_child(get_child(0))
+	remove_child($Level )
 	load_current_level()
 	restart_game.emit()
