@@ -17,5 +17,11 @@ volume_db = -5.0
 [node name="ChangeDirectionTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="EnemyShipStaticBody" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EnemyShipStaticBody"]
+position = Vector2(-24, 0)
+polygon = PackedVector2Array(24, -19, 37, -18, 47, -16, 52, 1, 70, 5, 70, 8, 58, 14, 39, 18, 11, 18, -10, 15, -22, 9, -22, 5, -4, 2, 1, -16, 12, -18)
+
 [connection signal="finished" from="EngineNoise" to="." method="_on_engine_noise_finished"]
 [connection signal="timeout" from="ChangeDirectionTimer" to="." method="start_change_dir_timer"]

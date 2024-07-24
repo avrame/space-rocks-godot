@@ -58,7 +58,7 @@ func _physics_process(delta):
 	
 	if collision:
 		var collider_name = collision.get_collider().get("name")
-		if collider_name == "AsteroidStaticBody":
+		if collider_name == "AsteroidStaticBody" or collider_name == "EnemyShipStaticBody":
 			explode()
 
 func _unhandled_key_input(event: InputEvent) -> void:
