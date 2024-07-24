@@ -32,6 +32,6 @@ func _on_next_level_pause_timeout() -> void:
 
 func _on_new_game_button_pressed() -> void:
 	current_level = 1
-	remove_child($Level )
+	remove_child($Level)
 	load_current_level()
 	restart_game.emit()

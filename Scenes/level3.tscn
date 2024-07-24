@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxq2r4crx55l3"]
 
-[ext_resource type="PackedScene" uid="uid://c426h6wdibxd" path="res://Scenes/base_level.tscn" id="1_2v1qt"]
+[ext_resource type="PackedScene" uid="uid://c426h6wdibxd" path="res://Scenes/base-level.tscn" id="1_2v1qt"]
 [ext_resource type="PackedScene" uid="uid://bcdeqofdqsjsl" path="res://Scenes/asteroid.tscn" id="2_e3n8d"]
 
 [node name="Level" instance=ExtResource("1_2v1qt")]

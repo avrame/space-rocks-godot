@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx8vq1tmb3hlc"]
+
+[ext_resource type="Script" path="res://Scripts/enemy_ship.gd" id="1_afqam"]
+[ext_resource type="Texture2D" uid="uid://baawhx1068gqs" path="res://Textures/enemy-ship.png" id="2_auysf"]
+[ext_resource type="AudioStream" uid="uid://c7gixjn7g2ukw" path="res://Audio/enemy-engine.wav" id="3_jdb2g"]
+
+[node name="EnemyShip" type="Node2D"]
+script = ExtResource("1_afqam")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_auysf")
+
+[node name="EngineNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_jdb2g")
+volume_db = -5.0
+
+[node name="ChangeDirectionTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="finished" from="EngineNoise" to="." method="_on_engine_noise_finished"]
+[connection signal="timeout" from="ChangeDirectionTimer" to="." method="start_change_dir_timer"]
