@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dx8vq1tmb3hlc"]
+[gd_scene load_steps=8 format=3 uid="uid://dx8vq1tmb3hlc"]
 
 [ext_resource type="Script" path="res://Scripts/enemy_ship.gd" id="1_afqam"]
 [ext_resource type="Texture2D" uid="uid://baawhx1068gqs" path="res://Textures/enemy-ship.png" id="2_auysf"]
 [ext_resource type="AudioStream" uid="uid://c7gixjn7g2ukw" path="res://Audio/enemy-engine.wav" id="3_jdb2g"]
 [ext_resource type="Texture2D" uid="uid://bc81bnmvnps7x" path="res://Textures/explosion-part.png" id="4_xopmo"]
 [ext_resource type="AudioStream" uid="uid://d321pmavxilib" path="res://Audio/ship-explodes.wav" id="5_513wk"]
+[ext_resource type="AudioStream" uid="uid://doxkwsxydoe0m" path="res://Audio/pew-pew.wav" id="6_2wfdn"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qak8f"]
 particle_flag_disable_z = true
@@ -29,10 +30,6 @@ script = ExtResource("1_afqam")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_auysf")
 
-[node name="EngineNoise" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_jdb2g")
-volume_db = -5.0
-
 [node name="ChangeDirectionTimer" type="Timer" parent="."]
 one_shot = true
 
@@ -44,10 +41,25 @@ texture = ExtResource("4_xopmo")
 lifetime = 0.5
 one_shot = true
 
+[node name="EngineNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_jdb2g")
+volume_db = -5.0
+
 [node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_513wk")
-volume_db = -15.0
-pitch_scale = 0.75
+volume_db = -0.44
+pitch_scale = 0.6
+
+[node name="PewPewSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_2wfdn")
+volume_db = -10.0
+pitch_scale = 0.5
+
+[node name="GunTimer" type="Timer" parent="."]
+wait_time = 1.25
+autostart = true
+
+[node name="GunMarker" type="Marker2D" parent="."]
 
 [node name="EnemyShipStaticBody" type="StaticBody2D" parent="." groups=["EnemyShips"]]
 
@@ -55,6 +67,7 @@ pitch_scale = 0.75
 position = Vector2(-24, 0)
 polygon = PackedVector2Array(24, -19, 37, -18, 47, -16, 52, 1, 70, 5, 70, 8, 58, 14, 39, 18, 11, 18, -10, 15, -22, 9, -22, 5, -4, 2, 1, -16, 12, -18)
 
-[connection signal="finished" from="EngineNoise" to="." method="_on_engine_noise_finished"]
 [connection signal="timeout" from="ChangeDirectionTimer" to="." method="start_change_dir_timer"]
 [connection signal="finished" from="Explosion" to="." method="_on_explosion_finished"]
+[connection signal="finished" from="EngineNoise" to="." method="_on_engine_noise_finished"]
+[connection signal="timeout" from="GunTimer" to="." method="_fire_gun"]

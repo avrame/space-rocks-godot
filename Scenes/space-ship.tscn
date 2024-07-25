@@ -24,7 +24,7 @@ radial_accel_min = 30.05
 radial_accel_max = 30.05
 scale_max = 3.0
 
-[node name="SpaceShip" type="CharacterBody2D"]
+[node name="SpaceShip" type="CharacterBody2D" groups=["PlayerShip"]]
 position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_cgh3a")
