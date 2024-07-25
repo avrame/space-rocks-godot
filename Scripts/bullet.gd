@@ -18,6 +18,11 @@ func _on_body_entered(body: Node2D) -> void:
 		var asteroid = body.get_parent()
 		if asteroid:
 			asteroid.explode()
+	elif body.is_in_group("EnemyShips"):
+		queue_free()
+		var enemy = body.get_parent()
+		if enemy:
+			enemy.explode()
 
 
 func _on_life_span_timer_timeout() -> void:

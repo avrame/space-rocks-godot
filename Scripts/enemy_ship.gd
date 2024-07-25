@@ -36,3 +36,13 @@ func start_change_dir_timer():
 	change_direction()
 	$ChangeDirectionTimer.wait_time = randi_range(2, 5)
 	$ChangeDirectionTimer.start()
+	
+func explode():
+	$Sprite2D.visible = false
+	$EngineNoise.stop()
+	$Explosion.emitting = true
+	$ExplosionSound.play()
+
+
+func _on_explosion_finished() -> void:
+	queue_free()
