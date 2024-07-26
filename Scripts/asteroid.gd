@@ -12,6 +12,7 @@ enum Size {SMALL, MEDIUM, LARGE}
 @onready var asteroid_small_scene = load("res://Scenes/asteroid-small.tscn")
 @onready var spaceship = get_node("../SpaceShip")
 @onready var LevelContainer = get_node("/root/Main/LevelContainer")
+@onready var Score = get_node("/root/Main/Score")
 @onready var screen_size = get_viewport_rect().size
 var speed
 var rotate_speed
@@ -33,6 +34,7 @@ func _process(delta: float) -> void:
 	rotate(delta * rotate_speed)
 	translate(delta * speed * velocity)
 	position = global.wrap_around(position)
+	#$DebugLabel.text = str(round(spaceship.position.distance_to(position)))
 
 func generate_random_position():
 	var x = randf_range(0, screen_size.x)
@@ -46,15 +48,19 @@ func explode():
 	$ExplosionSound.play()
 	match size:
 		Size.LARGE:
+			Score.increase_score(5)
 			for i in 3:
 				var medium_asteroid = asteroid_medium_scene.instantiate()
 				medium_asteroid.transform = global_transform
 				get_parent().add_child(medium_asteroid)
 		Size.MEDIUM:
+			Score.increase_score(10)
 			for i in 3:
 				var small_asteroid = asteroid_small_scene.instantiate()
 				small_asteroid.transform = global_transform
 				get_parent().add_child(small_asteroid)
+		Size.SMALL:
+			Score.increase_score(20)
 
 func _on_explosion_finished() -> void:
 	var asteroids = get_tree().get_nodes_in_group("Asteroids")

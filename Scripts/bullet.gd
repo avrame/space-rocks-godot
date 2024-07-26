@@ -1,6 +1,6 @@
 extends Area2D
 
-const speed = 3000
+const speed = 2000
 @onready var global = get_node("/root/Global")
 
 # Called when the node enters the scene tree for the first time.
@@ -21,7 +21,7 @@ func _on_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("EnemyShips"): 
 		queue_free()
 		var enemy = body.get_parent()
-		if enemy:
+		if not enemy.exploding:
 			enemy.explode()
 
 

@@ -1,11 +1,12 @@
 extends CenterContainer
 
+@onready var GameOver = get_node("/root/Main/GameOver")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") and not GameOver.visible:
 		if get_tree().paused:
 			get_tree().paused = false
 			visible = false

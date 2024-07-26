@@ -4,10 +4,13 @@ extends Node2D
 @onready var enemy_bullet_scene = preload("res://Scenes/enemy-bullet.tscn")
 @onready var Level = get_node("/root/Main/LevelContainer/Level")
 @onready var PlayerShip = get_node("/root/Main/LevelContainer/Level/SpaceShip")
+@onready var Score = get_node("/root/Main/Score")
+
 const SPEED = 150
 var sprite_width
 var sprite_height
 var velocity = Vector2.RIGHT
+var exploding = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,11 +46,13 @@ func start_change_dir_timer():
 	$ChangeDirectionTimer.start()
 	
 func explode():
+	exploding = true
 	$Sprite2D.visible = false
 	$EngineNoise.stop()
 	$GunTimer.stop()
 	$Explosion.emitting = true
 	$ExplosionSound.play()
+	Score.increase_score(50)
 
 
 func _on_explosion_finished() -> void:

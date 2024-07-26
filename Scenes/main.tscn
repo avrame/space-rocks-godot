@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://drf60pjfuwn0c"]
+[gd_scene load_steps=10 format=3 uid="uid://drf60pjfuwn0c"]
 
 [ext_resource type="Script" path="res://Scripts/level_container.gd" id="1_pon6j"]
 [ext_resource type="Script" path="res://Scripts/lives.gd" id="4_2fs3s"]
@@ -6,6 +6,12 @@
 [ext_resource type="Script" path="res://Scripts/level_start.gd" id="4_q7qxw"]
 [ext_resource type="Theme" uid="uid://ci72ymw8fi3b1" path="res://theme.tres" id="5_tr1yb"]
 [ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="5_uqapp"]
+[ext_resource type="FontFile" uid="uid://cc4xdgoydmo7l" path="res://Fonts/manaspc.ttf" id="7_0lptl"]
+[ext_resource type="Script" path="res://Scripts/score.gd" id="8_xy315"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_58t46"]
+font = ExtResource("7_0lptl")
+font_size = 32
 
 [node name="Main" type="Node2D"]
 
@@ -122,6 +128,15 @@ text = "New Game"
 layout_mode = 2
 theme = ExtResource("5_tr1yb")
 text = "Quit"
+
+[node name="Score" type="Label" parent="."]
+offset_left = 1536.0
+offset_top = 24.0
+offset_right = 1895.0
+offset_bottom = 56.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_58t46")
+script = ExtResource("8_xy315")
 
 [connection signal="restart_game" from="LevelContainer" to="Lives" method="_on_level_container_restart_game"]
 [connection signal="timeout" from="LevelContainer/NextLevelPause" to="LevelContainer" method="_on_next_level_pause_timeout"]

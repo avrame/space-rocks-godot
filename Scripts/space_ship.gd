@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
 
-const ROTATION_SPEED = 5.0
+const ROTATION_SPEED = 4.0
 const THRUST_SPEED = 10.0
 const FRICTION = .99
 const MAX_SPEED = 1000.0
-const MIN_DISTANCE_FROM_ASTEROID = 400
+const MIN_DISTANCE_FROM_ASTEROID = 300
 var init_position
 var init_rotation
 var sprite_width
@@ -62,11 +62,12 @@ func _physics_process(delta):
 			explode()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not prevent_firing and event.is_action_pressed("fire"):
+	if event.is_action_pressed("fire") and not prevent_firing and not exploding:
 		prevent_firing = true
 		$PewPewSound.play()
 		var bullet = bullet_scene.instantiate()
 		bullet.transform = $GunMarker.global_transform
+		bullet.scale = Vector2(1, 1)
 		owner.add_child(bullet)
 		$BulletTimer.start()
 
@@ -86,7 +87,7 @@ func _on_explosion_finished() -> void:
 
 func _on_respawn_timer_timeout() -> void:
 	if game_over_node.visible:
-		return
+		queue_free()
 	if asteroids_too_close():
 		$RespawnTimer.start()
 		return
@@ -99,7 +100,7 @@ func _on_respawn_timer_timeout() -> void:
 func asteroids_too_close():
 	var asteroids = get_tree().get_nodes_in_group("Asteroids")
 	for asteroid in asteroids:
-		if position.distance_to(asteroid.position) < MIN_DISTANCE_FROM_ASTEROID:
+		if global_position.distance_to(asteroid.global_position) < MIN_DISTANCE_FROM_ASTEROID:
 			return true
 	return false
 
