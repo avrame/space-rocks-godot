@@ -6,9 +6,8 @@ extends CenterContainer
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	open()
-	
 
-func _unhandled_key_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if visible:
 		visible = false
 		get_tree().paused = false

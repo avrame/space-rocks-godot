@@ -33,17 +33,17 @@ func _ready():
 func _physics_process(delta):
 	if exploding:
 		return
-	if Input.is_action_pressed("rotate-left"):
-		var rotate_amount = delta * -ROTATION_SPEED
-		rotate(rotate_amount)
-		right_engine_stream.emitting = true
-	elif Input.is_action_pressed("rotate-right"):
-		var rotate_amount = delta * ROTATION_SPEED
-		rotate(rotate_amount)
-		left_engine_stream.emitting = true
 	
-	if Input.is_action_pressed("thrust"):
-		velocity = velocity + Vector2.UP.rotated(rotation) * THRUST_SPEED
+	var rotate_input = Input.get_axis("rotate-left", "rotate-right")	
+	var thrust_input = Input.get_action_strength("thrust")
+	
+	if rotate_input != 0:
+		var rotate_amount = delta * rotate_input * ROTATION_SPEED
+		rotate(rotate_amount)
+		#right_engine_stream.emitting = true
+	
+	if thrust_input != 0:
+		velocity += thrust_input * Vector2.UP.rotated(rotation) * THRUST_SPEED
 		velocity = velocity.limit_length(MAX_SPEED)
 		left_engine_stream.emitting = true
 		right_engine_stream.emitting = true
@@ -61,7 +61,7 @@ func _physics_process(delta):
 		if collider_name == "AsteroidStaticBody" or collider_name == "EnemyShipStaticBody":
 			explode()
 
-func _unhandled_key_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("fire") and not prevent_firing and not exploding:
 		prevent_firing = true
 		$PewPewSound.play()
@@ -70,6 +70,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		bullet.scale = Vector2(1, 1)
 		owner.add_child(bullet)
 		$BulletTimer.start()
+		
+func _input(event: InputEvent) -> void:
+	print(event)
 
 func explode():
 	exploding = true
