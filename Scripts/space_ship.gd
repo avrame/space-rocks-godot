@@ -5,7 +5,7 @@ const ROTATION_SPEED = 4.0
 const THRUST_SPEED = 10.0
 const FRICTION = .99
 const MAX_SPEED = 1000.0
-const MIN_DISTANCE_FROM_ASTEROID = 300
+const MIN_DISTANCE_FROM_ASTEROID_OR_ENEMY = 250
 var init_position
 var init_rotation
 var sprite_width
@@ -46,6 +46,7 @@ func _physics_process(delta):
 			left_engine_stream.emitting = true
 	
 	if thrust_input != 0:
+		Input.start_joy_vibration(0, 0.5, 0.25, .1)
 		velocity += thrust_input * Vector2.UP.rotated(rotation) * THRUST_SPEED
 		velocity = velocity.limit_length(MAX_SPEED)
 		left_engine_stream.emitting = true
@@ -78,6 +79,7 @@ func _input(event: InputEvent) -> void:
 	print(event)
 
 func explode():
+	Input.start_joy_vibration(0, 0, 1, .3)
 	exploding = true
 	left_engine_stream.emitting = false
 	right_engine_stream.emitting = false
@@ -94,7 +96,7 @@ func _on_explosion_finished() -> void:
 func _on_respawn_timer_timeout() -> void:
 	if game_over_node.visible:
 		queue_free()
-	if asteroids_too_close():
+	if asteroids_or_enemy_too_close():
 		$RespawnTimer.start()
 		return
 	position = init_position
@@ -103,10 +105,14 @@ func _on_respawn_timer_timeout() -> void:
 	exploding = false
 	
 		
-func asteroids_too_close():
+func asteroids_or_enemy_too_close():
 	var asteroids = get_tree().get_nodes_in_group("Asteroids")
+	var enemies = get_tree().get_nodes_in_group("EnemyShips")
 	for asteroid in asteroids:
-		if global_position.distance_to(asteroid.global_position) < MIN_DISTANCE_FROM_ASTEROID:
+		if global_position.distance_to(asteroid.global_position) < MIN_DISTANCE_FROM_ASTEROID_OR_ENEMY:
+			return true
+	for enemy in enemies:
+		if global_position.distance_to(enemy.global_position) < MIN_DISTANCE_FROM_ASTEROID_OR_ENEMY:
 			return true
 	return false
 

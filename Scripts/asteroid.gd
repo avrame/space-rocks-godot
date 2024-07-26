@@ -49,18 +49,21 @@ func explode():
 	match size:
 		Size.LARGE:
 			Score.increase_score(5)
+			Input.start_joy_vibration(0, 0.75, 0.75, .3)
 			for i in 3:
 				var medium_asteroid = asteroid_medium_scene.instantiate()
 				medium_asteroid.transform = global_transform
 				get_parent().add_child(medium_asteroid)
 		Size.MEDIUM:
 			Score.increase_score(10)
+			Input.start_joy_vibration(0, 0.5, 0.5, .2)
 			for i in 3:
 				var small_asteroid = asteroid_small_scene.instantiate()
 				small_asteroid.transform = global_transform
 				get_parent().add_child(small_asteroid)
 		Size.SMALL:
 			Score.increase_score(20)
+			Input.start_joy_vibration(0, 0.25, 0.25, .1)
 
 func _on_explosion_finished() -> void:
 	var asteroids = get_tree().get_nodes_in_group("Asteroids")

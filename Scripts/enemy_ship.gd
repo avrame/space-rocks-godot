@@ -46,6 +46,7 @@ func start_change_dir_timer():
 	$ChangeDirectionTimer.start()
 	
 func explode():
+	Input.start_joy_vibration(0, 0.75, 0.75, .3)
 	exploding = true
 	$Sprite2D.visible = false
 	$EngineNoise.stop()
@@ -60,10 +61,11 @@ func _on_explosion_finished() -> void:
 
 
 func _fire_gun() -> void:
-	$GunMarker.look_at(PlayerShip.position)
-	var aim_error = randf_range(-PI/8, PI/8)
-	$GunMarker.rotate(aim_error)
-	$PewPewSound.play()
-	var bullet = enemy_bullet_scene.instantiate()
-	bullet.transform = $GunMarker.global_transform
-	get_parent().add_child(bullet)
+	if PlayerShip:
+		$GunMarker.look_at(PlayerShip.position)
+		var aim_error = randf_range(-PI/8, PI/8)
+		$GunMarker.rotate(aim_error)
+		$PewPewSound.play()
+		var bullet = enemy_bullet_scene.instantiate()
+		bullet.transform = $GunMarker.global_transform
+		get_parent().add_child(bullet)
