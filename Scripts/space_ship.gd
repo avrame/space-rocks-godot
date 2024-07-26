@@ -40,7 +40,10 @@ func _physics_process(delta):
 	if rotate_input != 0:
 		var rotate_amount = delta * rotate_input * ROTATION_SPEED
 		rotate(rotate_amount)
-		#right_engine_stream.emitting = true
+		if rotate_input < 0:
+			right_engine_stream.emitting = true
+		else:
+			left_engine_stream.emitting = true
 	
 	if thrust_input != 0:
 		velocity += thrust_input * Vector2.UP.rotated(rotation) * THRUST_SPEED
